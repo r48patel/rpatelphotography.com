@@ -1,7 +1,7 @@
 {
-  "name": "node-js-getting-started",
-  "version": "0.2.5",
-  "description": "A sample Node.js app using Express 4",
+  "name": "rpateltravels.com",
+  "version": "0.0.1",
+  "description": "A website for my travel documentations",
   "engines": {
     "node": "5.9.1"
   },
@@ -11,11 +11,16 @@
   },
   "dependencies": {
     "ejs": "2.4.1",
-    "express": "4.13.3"
+    "express": "4.13.3",
+    "bootstrap": "^3.3.7",
+    "browser-sync": "^2.13.0",
+    "font-awesome": "^4.6.3",
+    "jquery": "^1.11.3",
+    "scrollreveal": "^3.1.4"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
+    "url": "https://github.com/r48patel/rpateltravels.com"
   },
   "keywords": [
     "node",

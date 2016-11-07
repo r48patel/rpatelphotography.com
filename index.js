@@ -10,7 +10,16 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
-  response.render('pages/index');
+  // response.render('pages/index-lens');
+  response.render('pages/index-parallelism');
+});
+
+app.get('/:type', function(request, response) {
+  reqType = request.params.type
+  if (reqType != 'favicon.ico'){
+	  response.render('pages/' + request.params.type );
+  }
+  // response.render('pages/index-parallelism');
 });
 
 app.listen(app.get('port'), function() {
