@@ -13,7 +13,7 @@ var gallery_info = [
   {
     title: 'Seattle', sub_title: 'Summer 2016', images: {
       thumb:'http://tinyurl.com/gnr7s6g',
-      desc:'Jason Posing',
+      desc:'Andrew Posing',
       thumb_width: 285
     }
   }
@@ -30,7 +30,7 @@ app.set('view engine', 'ejs');
 app.get('/', function(request, response) {
   response.render('pages/index', {
   	title: 'rpateltravels',
-    sub_title: '(alltravelgallery_info)',
+    sub_title: 'STILL UNDER CONSTRUCTION!',
     gallery_info: gallery_info
   });
 });
