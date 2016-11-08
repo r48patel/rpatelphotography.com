@@ -9,8 +9,6 @@ var things = {
 	}
 }
 
-var title='rpateltravels'
-
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
@@ -20,9 +18,10 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
-  // response.render('pages/index-lens');
-  response.render('pages/index-parallelism', {
-  	title: title
+  response.render('pages/index', {
+  	title: 'rpateltravels',
+    sub_title: '(alltravelthings)',
+    things: things
   });
 });
 
@@ -31,7 +30,6 @@ app.get('/:type', function(request, response) {
   if (reqType != 'favicon.ico'){
 	  response.render('pages/' + request.params.type );
   }
-  // response.render('pages/index-parallelism');
 });
 
 app.listen(app.get('port'), function() {
