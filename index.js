@@ -17,7 +17,7 @@ var gallery_info = [
       thumb_width: 285
     }
   }
-]
+];
 
 app.set('port', (process.env.PORT || 5000));
 
