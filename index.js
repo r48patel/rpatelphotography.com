@@ -41,8 +41,9 @@ app.get('/gallery-:type', function(request, response) {
   if (reqType != 'favicon.ico'){
     for(var i=0;i<gallery_info.length;i++) {
       if(gallery_info[i].title == request.params.type) {
-        // response.render('pages/' + request.params.type );
-        response.render('pages/gallery');
+        response.render('pages/gallery', {
+          gallery_info: gallery_info[i]
+        });
       }
     }
   }
