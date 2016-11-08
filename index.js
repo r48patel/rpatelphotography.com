@@ -1,6 +1,16 @@
 var express = require('express');
 var app = express();
 
+var things = {
+	title: 'Vancouver', sub_title: 'Summer 2016', images: {
+		url:'http://tinyurl.com/jason-one-jpg',
+		thumb:'http://localhost:5000/lens/images/thumbs/01.jpg',
+		desc:'Jason Posing'
+	}
+}
+
+var title='rpateltravels'
+
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
@@ -11,7 +21,9 @@ app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
   // response.render('pages/index-lens');
-  response.render('pages/index-parallelism');
+  response.render('pages/index-parallelism', {
+  	title: title
+  });
 });
 
 app.get('/:type', function(request, response) {
