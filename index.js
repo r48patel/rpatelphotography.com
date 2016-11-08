@@ -1,13 +1,23 @@
 var express = require('express');
 var app = express();
 
-var things = {
-	title: 'Vancouver', sub_title: 'Summer 2016', images: {
-		url:'http://tinyurl.com/jason-one-jpg',
-		thumb:'http://localhost:5000/lens/images/thumbs/01.jpg',
-		desc:'Jason Posing'
-	}
-}
+var gallery_info = [
+  {
+  	title: 'Vancouver', sub_title: 'Summer 2016', 
+    images: {
+  		thumb:'http://tinyurl.com/jason-one-jpg',
+  		desc:'Jason Posing',
+      thumb_width: 285
+  	}
+  },
+  {
+    title: 'Seattle', sub_title: 'Summer 2016', images: {
+      thumb:'http://tinyurl.com/gnr7s6g',
+      desc:'Jason Posing',
+      thumb_width: 285
+    }
+  }
+]
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -20,15 +30,21 @@ app.set('view engine', 'ejs');
 app.get('/', function(request, response) {
   response.render('pages/index', {
   	title: 'rpateltravels',
-    sub_title: '(alltravelthings)',
-    things: things
+    sub_title: '(alltravelgallery_info)',
+    gallery_info: gallery_info
   });
 });
 
-app.get('/:type', function(request, response) {
+app.get('/gallery-:type', function(request, response) {
   reqType = request.params.type
+
   if (reqType != 'favicon.ico'){
-	  response.render('pages/' + request.params.type );
+    for(var i=0;i<gallery_info.length;i++) {
+      if(gallery_info[i].title == request.params.type) {
+        // response.render('pages/' + request.params.type );
+        response.render('pages/gallery');
+      }
+    }
   }
 });
 
