@@ -3,11 +3,11 @@ var app = express();
 var fs = require('fs');
 
 var gallery_info=[];
-var projects_info = fs.readFileSync(__dirname + '/public/projects.txt').toString().split('\n');
+var projects_info = fs.readFileSync(__dirname + '/views/templates/projects.txt').toString().split('\n');
 
 for(var repeat=0; repeat<10;repeat++){
 	for(i in projects_info){ 
-		var file_name = __dirname + '/public/projects/' + projects_info[i] + '.txt';
+		var file_name = __dirname + '/public/views/templates/projects/' + projects_info[i] + '.txt';
 		if(fs.existsSync(file_name)) {
 			var project_file = fs.readFileSync(file_name).toString().split('\n');
 			var images=[];
