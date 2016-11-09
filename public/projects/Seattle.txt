@@ -1,3 +1,4 @@
 Seattle;Summer 2016;http://tinyurl.com/gnr7s6g;300
-some_img_seattle;some_msg_seattle
-some_img_seattle_2;some_msg_seattle_2
+lens/images/thumbs/03.jpg;thumb three;NO!
+lens/images/thumbs/05.jpg;thumb five
+lens/images/thumbs/06.jpg;thumb six; yay seattle

@@ -16,7 +16,8 @@ for(var repeat=0; repeat<25;repeat++){
 			var picture_info = project_file[j].split(';');
 			images.push({
 				url: picture_info[0],
-				msg: picture_info[1]
+				name: picture_info[1],
+				msg: picture_info[2]
 			});
 	  	};
 
