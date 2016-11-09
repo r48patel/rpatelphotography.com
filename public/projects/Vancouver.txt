@@ -1,4 +1,0 @@
-Vancouver;Summer 2016;http://tinyurl.com/jason-one-jpg;285
-lens/images/thumbs/01.jpg;thumb one;This is some desc for one
-lens/images/thumbs/02.jpg;;no title
-lens/images/thumbs/04.jpg;thumb four;fourth picture
