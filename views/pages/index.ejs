@@ -18,10 +18,10 @@
 					<!-- Thumb Items -->
 
 						<% for(var i=0; i<gallery_info.length; i++) { %>
-							<article class="item thumb" data-width="<%= gallery_info[i]['images']['thumb_width'] %>">
+							<article class="item thumb" data-width="<%= gallery_info[i]['thumb_width'] %>">
 								<a href="gallery-<%= gallery_info[i]['title'] %>">
 									<h2><%= gallery_info[i]['title'] %></h2>
-									<img src="<%= gallery_info[i]['images']['thumb'] %>" alt="">
+									<img src="<%= gallery_info[i]['thumb'] %>" alt="">
 								</a>
 							</article>
 						<% } %>
