@@ -1,5 +1,20 @@
 var express = require('express');
 var app = express();
+// var fs = require('fs');
+// var sleep = require('sleep');
+
+// fs.readFile(__dirname + '/views/test.txt', 'utf8', function(err, data){
+// 	if (err) {
+// 		return console.log(err);
+// 	}
+// 	sleep.sleep(1)
+// 	// console.log(data)
+// });
+
+// var file_gallery_info = fs.readFileSync(__dirname + '/views/test.txt').toString();
+// console.log('test: ' + file_gallery_info)
+// console.log(typeof file_gallery_info)
+
 
 var gallery_info = [
   {
