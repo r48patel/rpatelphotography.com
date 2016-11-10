@@ -1,5 +1,5 @@
-Vancouver
-Seattle
-Vegas
-Dragon Boat 2016
-Canada - Jan 2016
+Vancouver.txt
+Seattle.txt
+Vegas.txt
+Dragon Boat 2016.txt
+Canada - Jan 2016.txt

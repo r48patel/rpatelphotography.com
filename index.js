@@ -5,10 +5,11 @@ var fs = require('fs');
 var gallery_info=[];
 var projects_info = fs.readFileSync(__dirname + '/views/templates/projects.txt').toString().split('\n');
 
-for(var repeat=0; repeat<10;repeat++){
+for(var repeat=0; repeat<1;repeat++){
 	for(i in projects_info){ 
-		var file_name = __dirname + '/public/views/templates/projects/' + projects_info[i] + '.txt';
+		var file_name = __dirname + '/views/templates/projects/' + projects_info[i];
 		if(fs.existsSync(file_name)) {
+			console.log('Reading: ' + file_name)
 			var project_file = fs.readFileSync(file_name).toString().split('\n');
 			var images=[];
 
@@ -33,6 +34,7 @@ for(var repeat=0; repeat<10;repeat++){
 		  	});
 		}
 		else {
+			console.log("Can't find: " + file_name)
 			gallery_info.push({
 				title: projects_info[i],
 				sub_title:'Coming Soon!',
