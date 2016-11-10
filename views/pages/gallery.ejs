@@ -16,7 +16,7 @@
 						<% for(var i=0; i<gallery_info.images.length; i++) { %>
 							<article>
 								<a class="thumbnail" href="<%= gallery_info.images[i]['url'] %>" data-position="left center">
-									<img src="<%= gallery_info.images[i]['url'] %>" alt="" />
+									<img data-width="400" src="<%= gallery_info.images[i]['url'] %>" alt="" />
 								</a>
 								<h2><%= gallery_info.images[i]['name'] %></h2>
 								<p><%= gallery_info.images[i]['msg'] %></p>

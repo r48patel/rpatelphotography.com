@@ -15,12 +15,14 @@ for(var repeat=0; repeat<1;repeat++){
 
 		  	for(var j=1; j<project_file.length;j++){
 				//img_url;img_msg
-				var picture_info = project_file[j].split(';');
-				images.push({
-					url: picture_info[0],
-					name: picture_info[1],
-					msg: picture_info[2]
-				});
+				if(!project_file[j].startsWith('#')) {
+					var picture_info = project_file[j].split(';');
+					images.push({
+						url: picture_info[0],
+						name: picture_info[1],
+						msg: picture_info[2]
+					});
+				}
 		  	};
 
 		  	//title;sub_title;thumb;thumb_width
@@ -36,10 +38,10 @@ for(var repeat=0; repeat<1;repeat++){
 		else {
 			console.log("Can't find: " + file_name)
 			gallery_info.push({
-				title: projects_info[i],
+				title: projects_info[i].split('.')[0],
 				sub_title:'Coming Soon!',
 				thumb: 'http://www.booktrip4me.com/Content/images/Coming-Soon.png',
-				thumb_width: '285',
+				thumb_width: '400',
 				images: [{
 					url: 'http://www.booktrip4me.com/Content/images/Coming-Soon.png',
 					name: 'Coming Soon',
