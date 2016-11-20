@@ -2,9 +2,9 @@ Seattle;Summer 2016;http://tinyurl.com/zezgg36;300
 http://tinyurl.com/h8h7tcy;Downtown Skyline;It was worth getting early morning for this
 http://tinyurl.com/zqvswd7;Downtown Skyline II;
 http://tinyurl.com/z6cr4pv;Downtown Skyline III;Having some fun with polarization
-http://tinyurl.com/j5vwqgq;Seattle Needle;Reminds me of Infamous 2
+#http://tinyurl.com/j5vwqgq;Seattle Needle;Reminds me of Infamous 2
 http://tinyurl.com/jcrbdnz;Gaswork Park;The architecture was amazing
-http://tinyurl.com/jn3srh6;The Needle;Closeup view
+#http://tinyurl.com/jn3srh6;The Needle;Closeup view
 http://tinyurl.com/hdmx38s;Seattle Port;#nofilter
 http://tinyurl.com/hn37quh;Seattle Mariners vs SF Angels;Angles won 
 http://tinyurl.com/zrr5mz6;Seattle Mariners vs SF Angels II
