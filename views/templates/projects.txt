@@ -1,4 +1,4 @@
-Vancouver.txt
+Niagara.txt
 Seattle.txt
 Vegas.txt
 Dragon Boat 2016.txt
