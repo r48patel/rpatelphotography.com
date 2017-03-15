@@ -1,5 +1,5 @@
-title;sub_title;thumb;thumb_width
-Seattle;Summer 2016;http://tinyurl.com/gnr7s6g;300
+title;sub_title;thumb
+Seattle;Summer 2016;http://tinyurl.com/gnr7s6g
 
-img_url;img_title;img_msg
-lens/images/thumbs/06.jpg;thumb six; yay seattle
+img_url
+lens/images/thumbs/06.jpg

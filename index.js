@@ -1,54 +1,42 @@
 var express = require('express');
 var app = express();
 var fs = require('fs');
+var path = require('path');
 
 var gallery_info=[];
-var projects_info = fs.readFileSync(__dirname + '/views/templates/projects.txt').toString().split('\n');
+var projects_info = fs.readFileSync(path.join(__dirname,'views','templates','projects.txt')).toString().split('\n');
 
-for(var repeat=0; repeat<1;repeat++){
-	for(i in projects_info){ 
-		var file_name = __dirname + '/views/templates/projects/' + projects_info[i];
-		if(fs.existsSync(file_name)) {
-			console.log('Reading: ' + file_name);
-			var project_file = fs.readFileSync(file_name).toString().split('\n');
-			var images=[];
+for(var i=0; i < projects_info.length; i++){
+	var file_name = __dirname + '/views/templates/projects/' + projects_info[i];
+	if(fs.existsSync(file_name)) {
+		console.log('Reading: ' + file_name);
+		var project_file = fs.readFileSync(file_name).toString().split('\n');
+		var images=[];
 
-		  	for(var j=1; j<project_file.length;j++){
-				//img_url;img_msg
-				if(!project_file[j].startsWith('#')) {
-					var picture_info = project_file[j].split(';');
-					images.push({
-						url: picture_info[0],
-						name: picture_info[1],
-						msg: picture_info[2]
-					});
-				}
-		  	}
-
-		  	//title;sub_title;thumb;thumb_width
-			var project_info = project_file[0].split(';');
-		  	gallery_info.push({
-		  		title: project_info[0],
-		  		sub_title: project_info[1],
-		  		thumb: project_info[2],
-		  		thumb_width: project_info[3],
-		  		images: images
-		  	});
+		for(var j=1; j<project_file.length;j++){
+			//img_url
+			if(!project_file[j].startsWith('#')) {
+				images.push(project_file[j]);
+			}
 		}
-		else {
-			console.log("Can't find: " + file_name);
-			gallery_info.push({
-				title: projects_info[i].split('.')[0],
-				sub_title:'Coming Soon!',
-				thumb: 'http://www.booktrip4me.com/Content/images/Coming-Soon.png',
-				thumb_width: '400',
-				images: [{
-					url: 'http://www.booktrip4me.com/Content/images/Coming-Soon.png',
-					name: 'Coming Soon',
-					msg: 'Coming Soon'
-				}]
-			})
-		}
+
+		//title;sub_title;thumb
+		var project_info = project_file[0].split(';');
+		gallery_info.push({
+			title: project_info[0],
+			sub_title: project_info[1],
+			thumb: project_info[2],
+			images: images
+		});
+	}
+	else {
+		console.log("Can't find: " + file_name);
+		gallery_info.push({
+			title: projects_info[i].split('.')[0],
+			sub_title:'Coming Soon!',
+			thumb: 'http://www.booktrip4me.com/Content/images/Coming-Soon.png',
+			images: ['http://www.booktrip4me.com/Content/images/Coming-Soon.png']
+		})
 	}
 }
 
