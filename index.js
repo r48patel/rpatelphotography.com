@@ -9,7 +9,7 @@ for(var repeat=0; repeat<1;repeat++){
 	for(i in projects_info){ 
 		var file_name = __dirname + '/views/templates/projects/' + projects_info[i];
 		if(fs.existsSync(file_name)) {
-			console.log('Reading: ' + file_name)
+			console.log('Reading: ' + file_name);
 			var project_file = fs.readFileSync(file_name).toString().split('\n');
 			var images=[];
 
@@ -23,7 +23,7 @@ for(var repeat=0; repeat<1;repeat++){
 						msg: picture_info[2]
 					});
 				}
-		  	};
+		  	}
 
 		  	//title;sub_title;thumb;thumb_width
 			var project_info = project_file[0].split(';');
@@ -36,7 +36,7 @@ for(var repeat=0; repeat<1;repeat++){
 		  	});
 		}
 		else {
-			console.log("Can't find: " + file_name)
+			console.log("Can't find: " + file_name);
 			gallery_info.push({
 				title: projects_info[i].split('.')[0],
 				sub_title:'Coming Soon!',
@@ -49,7 +49,7 @@ for(var repeat=0; repeat<1;repeat++){
 				}]
 			})
 		}
-	};
+	}
 }
 
 app.set('port', (process.env.PORT || 5000));
@@ -62,20 +62,38 @@ app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
   response.render('pages/index', {
-  	title: 'rpateltravels',
-    sub_title: 'STILL UNDER CONSTRUCTION!',
-    gallery_info: gallery_info
+	  title: 'Portfolio',
+	  sub_title: 'Sharing some of the moments captured on my travels',
+	  main: true,
+	  gallery_info: gallery_info
   });
 });
 
+app.post('/', function(request, response) {
+	console.log(request);
+	console.log('  ');
+	console.log('  ');
+	console.log(request);
+	response.send('<p> Will implement this soon... </p>');
+});
+
+app.get('/blog-:name', function(request, response){
+	blogReq = request.params.name;
+
+	response.render('blogs/' + blogReq)
+});
+
 app.get('/gallery-:type', function(request, response) {
-  reqType = request.params.type
+  reqType = request.params.type;
 
   if (reqType != 'favicon.ico'){
     for(var i=0;i<gallery_info.length;i++) {
       if(gallery_info[i].title == request.params.type) {
-        response.render('pages/gallery', {
-          gallery_info: gallery_info[i]
+        response.render('pages/index', {
+			title: gallery_info[i]['title'],
+			sub_title: gallery_info[i]['sub_title'],
+			main: false,
+			gallery_info: gallery_info[i]
         });
       }
     }

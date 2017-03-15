@@ -1,6 +1,5 @@
 Niagara;June 2014;http://tinyurl.com/gn53ehd;400
 #img_url;img_title;img_msg
-http://tinyurl.com/gn53ehd;Canadian Falls;
 http://tinyurl.com/gvoyfy3;US Falls;
 http://tinyurl.com/jdamd68;Top of the Canadian Falls
 http://tinyurl.com/hgo766f;Majestic Beast

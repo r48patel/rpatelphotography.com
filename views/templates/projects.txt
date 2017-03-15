@@ -1,5 +1,6 @@
 Niagara.txt
 Seattle.txt
+Trail of Lights.txt
 Vegas.txt
 Dragon Boat 2016.txt
 Canada - Jan 2016.txt
