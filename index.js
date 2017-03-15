@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var fs = require('fs');
 var path = require('path');
+var logger = require('morgan');
 
 var gallery_info=[];
 var projects_info = fs.readFileSync(path.join(__dirname,'views','templates','projects.txt')).toString().split('\n');
@@ -42,12 +43,13 @@ for(var i=0; i < projects_info.length; i++){
 
 app.set('port', (process.env.PORT || 5000));
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, '/public')));
 
 // views is directory for all template files
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
+app.use(logger());
 app.get('/', function(request, response) {
   response.render('pages/index', {
 	  title: 'Portfolio',
@@ -65,18 +67,18 @@ app.post('/', function(request, response) {
 	response.send('<p> Will implement this soon... </p>');
 });
 
-app.get('/blog-:name', function(request, response){
+app.get('/blog/:name', function(request, response){
 	blogReq = request.params.name;
 
 	response.render('blogs/' + blogReq)
 });
 
-app.get('/gallery-:type', function(request, response) {
-  reqType = request.params.type;
+app.get('/gallery/:name', function(request, response) {
+  name = request.params.name;
 
-  if (reqType != 'favicon.ico'){
+  if (name != 'favicon.ico'){
     for(var i=0;i<gallery_info.length;i++) {
-      if(gallery_info[i].title == request.params.type) {
+      if(gallery_info[i].title == name) {
         response.render('pages/index', {
 			title: gallery_info[i]['title'],
 			sub_title: gallery_info[i]['sub_title'],
