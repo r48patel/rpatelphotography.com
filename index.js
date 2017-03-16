@@ -55,6 +55,7 @@ app.get('/', function(request, response) {
 	  title: 'Portfolio',
 	  sub_title: 'Sharing some of the moments captured on my travels',
 	  main: true,
+	  blog_exists: false,
 	  gallery_info: gallery_info
   });
 });
@@ -68,13 +69,17 @@ app.post('/', function(request, response) {
 });
 
 app.get('/blog/:name', function(request, response){
-	blogReq = request.params.name;
+	var blogReq = request.params.name;
 
 	response.render('blogs/' + blogReq)
 });
 
+function does_blog_exists(gallery_requsted) {
+	return fs.existsSync(path.join('views','blogs', gallery_requsted + '.ejs'));
+}
+
 app.get('/gallery/:name', function(request, response) {
-  name = request.params.name;
+  var name = request.params.name;
 
   if (name != 'favicon.ico'){
     for(var i=0;i<gallery_info.length;i++) {
@@ -83,6 +88,7 @@ app.get('/gallery/:name', function(request, response) {
 			title: gallery_info[i]['title'],
 			sub_title: gallery_info[i]['sub_title'],
 			main: false,
+			blog_exists: does_blog_exists(name),
 			gallery_info: gallery_info[i]
         });
       }
