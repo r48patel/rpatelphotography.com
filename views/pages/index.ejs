@@ -8,10 +8,9 @@
 			<div id="main">
 				<div class="inner">
 					<header>
-						<h1><%=title%><%if (blog_exists == true) {%>  <a href="/blog/<%=title%>"><i class="fa fa-wordpress" aria-hidden="true"></i></a><%}%></h1>
+						<h1><%=title%></h1>
 						<p><%=sub_title%></p>
 					</header>
-					<% if (main == true) {%>
 						<section class="tiles">
 						<% gallery_info.forEach(project => {%>
 							<article class="style1">
@@ -27,18 +26,6 @@
 							</article>
 							<%})%>
 						</section>
-					<% } else { %>
-					<section>
-							<div class="box alt">
-								<div class="row uniform">
-									<div class="12u$"><span class="image fit"><img src="<%= gallery_info['thumb']%>" alt="" /></span></div>
-									<% gallery_info['images'].forEach(image =>{%>
-										<div class="6u"><span class="image fit"><img src="<%= image %>" alt="" /></span></div>
-									<%})%>
-								</div>
-							</div>
-						</section>
-					<% } %>
 				</div>
 			</div>
 

@@ -44,6 +44,15 @@ function update_gallery_info() {
 	}
 }
 
+function does_blog_exists(gallery_requsted) {
+	return fs.existsSync(path.join('views','blogs', gallery_requsted + '.ejs'));
+}
+
+function get_blog_list(){
+	return fs.readdirSync(path.join('views', 'blogs'))
+}
+
+
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(path.join(__dirname, '/public')));
@@ -58,9 +67,8 @@ app.get('/', function(request, response) {
 	response.render('pages/index', {
 		title: 'Portfolio',
 	  	sub_title: 'Sharing some of the moments captured on my travels',
-	  	main: true,
-	  	blog_exists: false,
-	  	gallery_info: gallery_info
+		gallery_info: gallery_info,
+		blog_info: get_blog_list()
   	});
 });
 
@@ -75,12 +83,11 @@ app.post('/', function(request, response) {
 app.get('/blog/:name', function(request, response){
 	var blogReq = request.params.name;
 
-	response.render('blogs/' + blogReq)
+	response.render('blogs/' + blogReq, {
+		gallery_info: gallery_info,
+		blog_info: get_blog_list()
+	})
 });
-
-function does_blog_exists(gallery_requsted) {
-	return fs.existsSync(path.join('views','blogs', gallery_requsted + '.ejs'));
-}
 
 app.get('/gallery/:name', function(request, response) {
   	var name = request.params.name;
@@ -88,12 +95,15 @@ app.get('/gallery/:name', function(request, response) {
 	if (name != 'favicon.ico'){
     	for(var i=0;i<gallery_info.length;i++) {
       		if(gallery_info[i].title == name) {
-        		response.render('pages/index', {
+        		response.render('pages/blog', {
 					title: gallery_info[i]['title'],
 					sub_title: gallery_info[i]['sub_title'],
+					thumb: gallery_info[i]['thumb'],
 					main: false,
 					blog_exists: does_blog_exists(name),
-					gallery_info: gallery_info[i]
+					images: gallery_info[i]['images'],
+					gallery_info: gallery_info,
+					blog_info: get_blog_list()
         		});
       	}
     }

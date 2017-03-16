@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+<% include ../partials/head.ejs %>
+<body>
+<% include ../partials/header.ejs %>
+
+<!-- Main -->
+<div id="main">
+    <div class="inner">
+        <header>
+            <h1><%=title%><%if (blog_exists == true) {%>  <a class="blog-icon" href="/blog/<%=title%>"><i class="fa fa-wordpress" aria-hidden="true"></i></a><%}%></h1>
+            <p><%=sub_title%></p>
+        </header>
+        <section>
+            <div class="box alt">
+                <div class="row uniform">
+                    <div class="12u$"><span class="image fit"><img src="<%= thumb%>" alt="" /></span></div>
+                    <% images.forEach(image =>{%>
+                    <div class="6u"><span class="image fit"><img src="<%= image %>" alt="" /></span></div>
+                    <%})%>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- Footer -->
+<% include ../partials/footer.ejs %>
+</body>
+</html>

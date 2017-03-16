@@ -4,12 +4,17 @@
     <ul>
         <li>Blogs
             <ul>
-                <li><a href="/blog/Niagara">Niagara</a></li>
+                <%blog_info.forEach(blog => {%>
+                <%blog_name = blog.split('.')[0]%>
+                <li><a class="nav-list" href="/blog/<%=blog_name%>"><%=blog_name%></a></li>
+                <%})%>
             </ul>
         </li>
         <li>Gallery
             <ul>
-                <li><a href="/gallery/Niagara">Niagara</a></li>
+                <%gallery_info.forEach(project => {%>
+                    <li><a class="nav-list" href="/gallery/<%=project['title']%>"><%=project['title']%></a></li>
+                <%})%>
             </ul>
         </li>
     </ul>
