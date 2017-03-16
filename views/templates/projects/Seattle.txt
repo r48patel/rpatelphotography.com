@@ -1,18 +1,10 @@
-Seattle;Summer 2016;http://tinyurl.com/zezgg36;300
-http://tinyurl.com/h8h7tcy
-http://tinyurl.com/zqvswd7
-http://tinyurl.com/z6cr4pv
-#http://tinyurl.com/j5vwqgq
-http://tinyurl.com/jcrbdnz
-#http://tinyurl.com/jn3srh6
-http://tinyurl.com/hdmx38s
-http://tinyurl.com/hn37quh
-http://tinyurl.com/zrr5mz6
-http://tinyurl.com/zahsa35
-http://tinyurl.com/hb33wqv
-http://tinyurl.com/hs8xxrb
-http://tinyurl.com/h23y47p
-http://tinyurl.com/jbhtsg3
-http://tinyurl.com/hwvkclm
-http://tinyurl.com/z6qvwse
-http://tinyurl.com/zpmee5p
+Seattle;Summer 2016;https://s3.amazonaws.com/rpateltravels/Washington/Seattle/6.jpg;
+https://s3.amazonaws.com/rpateltravels/Washington/Seattle/DSC_0022_edited.JPG
+https://s3.amazonaws.com/rpateltravels/Washington/Seattle/DSC_0081_edited.JPG
+https://s3.amazonaws.com/rpateltravels/Washington/Seattle/DSC_3577_edited.JPG
+https://s3.amazonaws.com/rpateltravels/Washington/Seattle/DSC_3608_edited.JPG
+https://s3.amazonaws.com/rpateltravels/Washington/Seattle/DSC_3594_edited.JPG
+https://s3.amazonaws.com/rpateltravels/Washington/Seattle/DSC_3638_edited.JPG
+https://s3.amazonaws.com/rpateltravels/Washington/Seattle/DSC_3716_edited.JPG
+https://s3.amazonaws.com/rpateltravels/Washington/Seattle/DSC_3728-Edit_edited.JPG
+https://s3.amazonaws.com/rpateltravels/Washington/Seattle/DSC_3759_edited.JPG

@@ -1,6 +1,8 @@
-Niagara.txt
+Austin.txt
 Seattle.txt
+Mt Baker.txt
 Trail of Lights.txt
 Vegas.txt
-Dragon Boat 2016.txt
-Canada - Jan 2016.txt
+Niagara.txt
+Vancouver.txt
+Disney.txt

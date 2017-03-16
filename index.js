@@ -5,39 +5,42 @@ var path = require('path');
 var logger = require('morgan');
 
 var gallery_info=[];
-var projects_info = fs.readFileSync(path.join(__dirname,'views','templates','projects.txt')).toString().split('\n');
 
-for(var i=0; i < projects_info.length; i++){
-	var file_name = __dirname + '/views/templates/projects/' + projects_info[i];
-	if(fs.existsSync(file_name)) {
-		console.log('Reading: ' + file_name);
-		var project_file = fs.readFileSync(file_name).toString().split('\n');
-		var images=[];
+function update_gallery_info() {
+	var projects_info = fs.readFileSync(path.join(__dirname,'views','templates','projects.txt')).toString().split('\n');
+	gallery_info=[];
+	for (var i = 0; i < projects_info.length; i++) {
+		var file_name = __dirname + '/views/templates/projects/' + projects_info[i];
+		if (fs.existsSync(file_name)) {
+			console.log('Reading: ' + file_name);
+			var project_file = fs.readFileSync(file_name).toString().split('\n');
+			var images = [];
 
-		for(var j=1; j<project_file.length;j++){
-			//img_url
-			if(!project_file[j].startsWith('#')) {
-				images.push(project_file[j]);
+			for (var j = 1; j < project_file.length; j++) {
+				//img_url
+				if (!project_file[j].startsWith('#')) {
+					images.push(project_file[j]);
+				}
 			}
-		}
 
-		//title;sub_title;thumb
-		var project_info = project_file[0].split(';');
-		gallery_info.push({
-			title: project_info[0],
-			sub_title: project_info[1],
-			thumb: project_info[2],
-			images: images
-		});
-	}
-	else {
-		console.log("Can't find: " + file_name);
-		gallery_info.push({
-			title: projects_info[i].split('.')[0],
-			sub_title:'Coming Soon!',
-			thumb: 'http://www.booktrip4me.com/Content/images/Coming-Soon.png',
-			images: ['http://www.booktrip4me.com/Content/images/Coming-Soon.png']
-		})
+			//title;sub_title;thumb
+			var project_info = project_file[0].split(';');
+			gallery_info.push({
+				title: project_info[0],
+				sub_title: project_info[1],
+				thumb: project_info[2],
+				images: images
+			});
+		}
+		else {
+			console.log("Can't find: " + file_name);
+			gallery_info.push({
+				title: projects_info[i].split('.')[0],
+				sub_title: 'Coming Soon!',
+				thumb: 'http://www.booktrip4me.com/Content/images/Coming-Soon.png',
+				images: ['http://www.booktrip4me.com/Content/images/Coming-Soon.png']
+			})
+		}
 	}
 }
 
@@ -51,13 +54,14 @@ app.set('view engine', 'ejs');
 
 app.use(logger());
 app.get('/', function(request, response) {
-  response.render('pages/index', {
-	  title: 'Portfolio',
-	  sub_title: 'Sharing some of the moments captured on my travels',
-	  main: true,
-	  blog_exists: false,
-	  gallery_info: gallery_info
-  });
+	update_gallery_info();
+	response.render('pages/index', {
+		title: 'Portfolio',
+	  	sub_title: 'Sharing some of the moments captured on my travels',
+	  	main: true,
+	  	blog_exists: false,
+	  	gallery_info: gallery_info
+  	});
 });
 
 app.post('/', function(request, response) {
@@ -79,19 +83,19 @@ function does_blog_exists(gallery_requsted) {
 }
 
 app.get('/gallery/:name', function(request, response) {
-  var name = request.params.name;
-
-  if (name != 'favicon.ico'){
-    for(var i=0;i<gallery_info.length;i++) {
-      if(gallery_info[i].title == name) {
-        response.render('pages/index', {
-			title: gallery_info[i]['title'],
-			sub_title: gallery_info[i]['sub_title'],
-			main: false,
-			blog_exists: does_blog_exists(name),
-			gallery_info: gallery_info[i]
-        });
-      }
+  	var name = request.params.name;
+	update_gallery_info();
+	if (name != 'favicon.ico'){
+    	for(var i=0;i<gallery_info.length;i++) {
+      		if(gallery_info[i].title == name) {
+        		response.render('pages/index', {
+					title: gallery_info[i]['title'],
+					sub_title: gallery_info[i]['sub_title'],
+					main: false,
+					blog_exists: does_blog_exists(name),
+					gallery_info: gallery_info[i]
+        		});
+      	}
     }
   }
 });
