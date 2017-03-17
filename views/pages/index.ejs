@@ -12,12 +12,12 @@
 						<p><%=sub_title%></p>
 					</header>
 						<section class="tiles">
-						<% gallery_info.forEach(project => {%>
+						<% portfolio_info.forEach(project => {%>
 							<article class="style1">
 														<span class="image">
 															<img src=<%= project['thumb']%> alt="" />
 														</span>
-								<a href="gallery/<%= project['title']%>">
+								<a href="portfolio/<%= project['title']%>">
 									<h2><%= project['title']%></h2>
 									<div class="content">
 										<p><%= project['sub_title']%></p>
