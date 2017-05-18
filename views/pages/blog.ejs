@@ -15,8 +15,13 @@
             <div class="box alt">
                 <div class="row uniform">
                     <div class="12u$"><span class="image fit"><img src="<%= thumb%>" alt="" /></span></div>
+                    <% counter = 0 %>
                     <% images.forEach(image =>{%>
-                    <div class="6u"><span class="image fit"><img src="<%= image %>" alt="" /></span></div>
+                    <%if (counter%2) {%>
+                        <div class="6u$"><span class="image fit"><img src="<%= image %>" alt="" /></span></div>
+                    <%} else {%>
+                        <div class="6u"><span class="image fit"><img src="<%= image %>" alt="" /></span></div>
+                    <%}%>
                     <%})%>
                 </div>
             </div>
