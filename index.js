@@ -67,13 +67,13 @@ app.get('/', function(request, response) {
 	});
 });
 
-app.post('/', function(request, response) {
-	console.log(request);
-	console.log('  ');
-	console.log('  ');
-	console.log(request);
-	response.send('<p> Will implement this soon... </p>');
-});
+// app.post('/', function(request, response) {
+// 	console.log(request);
+// 	console.log('  ');
+// 	console.log('  ');
+// 	console.log(request);
+// 	response.send('<p> Will implement this soon... </p>');
+// });
 
 app.get('/blog/:name', function(request, response){
 	var blogReq = request.params.name;
