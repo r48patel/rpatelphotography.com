@@ -79,7 +79,7 @@ app.get('/blog/:name', function(request, response){
 	var blogReq = request.params.name;
 
 	response.render('blogs/' + blogReq, {
-		portfolio_info: portfolio_info,
+		portfolio_info: get_portfolio_info(),
 		blog_info: get_blog_list()
 	})
 });
