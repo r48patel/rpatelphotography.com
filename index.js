@@ -66,7 +66,7 @@ function get_portfolio_info(location) {
 			}
 		}
 		else {
-			// console.log('Excluding: ' + file_name)
+			console.log('Excluding: ' + file_name)
 		}
 	}
 
@@ -132,7 +132,7 @@ app.get('/blog/:name', function(request, response){
 app.get('/portfolio/:name', function(request, response) {
 	var name = request.params.name;
 	portfolio_info = get_portfolio_info();
-	// console.log(portfolio_details)
+	
 	asking_portfolio = portfolio_details[name];
 
 	if (name != 'favicon.ico'){
