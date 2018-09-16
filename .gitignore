@@ -8,7 +8,8 @@ npm-debug.log
 *.env
 *.dev
 .DS_Store
-
+*.pyc
+lambda.zip
 # Docker
 Dockerfile
 docker-compose.yml
