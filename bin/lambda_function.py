@@ -18,7 +18,7 @@ def get_all_s3_objects(s3, bucket, prefix=None):
         items = []
         for result in results:
             for content in result['Contents']:
-                if content['Size'] > 0:
+                if content['Size'] > 0 and '-thumb.' not in content['Key']:
                     items.append(content)
 
         return items

@@ -9,6 +9,10 @@ cp lambda_function.py lambda/
 echo "Zip lambda"
 cd lambda/
 zip -r ../lambda.zip . 1>/dev/null
+echo "Remove lambda/db.py"
+rm db.py
+echo "Remove lambda/lambda_function.py"
+rm lambda_function.py
 cd ..
 echo "Upload lambda.zip"
 aws lambda update-function-code --function-name rpateltravels_psql_update --zip-file fileb://lambda.zip --profile personal 1>/dev/null
