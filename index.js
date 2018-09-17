@@ -5,10 +5,8 @@ var logger = require('morgan');
 const { Client } = require('pg')
 var shell = require('shelljs');
 
-
-
 if(!process.env.DATABASE_URL) {
-	var DATABASE_URL = shell.exec("heroku config:get DATABASE_URL")
+	var DATABASE_URL = shell.exec("heroku config:get DATABASE_URL --app rpateltravels")
 }
 else {
 	var DATABASE_URL = process.env.DATABASE_URL
@@ -45,13 +43,11 @@ app.set('view engine', 'ejs');
 app.use(logger());
 app.get('/', function(request, response) {
 	read_database().then(res => {
-		// for (var i = 0; i < res.length; i++) {
-		// 	console.log(res[i])
-		// };
 		response.render('pages/index', {
 			info: res
 		});
 	})
+	.catch(e => console.error(e.stack))
 });
 
 app.listen(app.get('port'), function() {
