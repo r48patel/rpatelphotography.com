@@ -51,6 +51,10 @@ class PSQL():
 		command="""UPDATE %s SET %s = %s WHERE %s""" % (table, column, values, conditions)
 		return self.execute(command)
 
+	def delete(self, table, conditions):
+		command="""DELETE FROM %s WHERE %s""" %(table, conditions)
+		return self.execute(command)
+
 	def drop_table(self, table):
 		command="""DROP TABLE IF EXISTS %s;""" % table
 		return self.execute(command)
@@ -69,13 +73,15 @@ def main(url, action, table, columns, conditions, values):
 		psql.update(table, columns, values, conditions)
 	elif action == 'drop_table':
 		psql.drop_table(table)
+	elif action == 'delete':
+		psql.delete(table, conditions)
 
 
 if __name__ == '__main__':
 
 	parser = argparse.ArgumentParser('Heroku Postgres database helper script')
 	parser.add_argument('--url', help='db url', required=True)
-	parser.add_argument('--action', help='What action to execute', choices=['create_table', 'select', 'insert', 'drop_table', 'update'], required=True)
+	parser.add_argument('--action', help='What action to execute', choices=['create_table', 'select', 'insert', 'drop_table', 'update', 'delete'], required=True)
 	parser.add_argument('--table', help='table name', required=True)
 	parser.add_argument('--columns', help='columns name')
 	parser.add_argument('--conditions', default=None, help='conditions for select')
