@@ -44,6 +44,7 @@ def update_psql(bucket, key):
     title = prefix_array[0].strip()
     location = prefix_array[1].strip()
     term = prefix_array[2].strip()
+    taken_date = prefix_array[3].strip().replace('_', '-')
     link_prefix = "https://s3.amazonaws.com/rpateltravels/%s/" % prefix.replace(' ', '+')
     total_items = len(get_all_s3_objects(s3, bucket, prefix))
 
@@ -52,7 +53,7 @@ def update_psql(bucket, key):
     if len(select_results) > 0:
         command = psql.update('rpateltravels', 'items', total_items, "title = '%s'" % title)
     else:
-        command = psql.insert('rpateltravels', "title,location,term,link_prefix,items", "('%s', '%s', '%s', '%s', %s)" % (title, location, term, link_prefix, total_items))
+        command = psql.insert('rpateltravels', "title,location,term,taken_date,link_prefix,items", "('%s', '%s', '%s', '%s', '%s', %s)" % (title, location, term, taken_date, link_prefix, total_items))
 
     print (command)
 
