@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+	<% include ../partials/head.ejs %>
+	<body>
+		<% include ../partials/header.ejs %>
+
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<header>
+						<h1><%=title%></h1>
+						<p><%=sub_title%></p>
+					</header>
+					<section class="tiles">
+						<% portfolio_info.forEach(project => {%>
+							<article class="style1">
+								<span class="image">
+									<img src=<%= project['thumb']%> alt="" />
+								</span>
+								<a href="<%= project['link']%>">
+									<h2><%= project['title']%></h2>
+									<div class="content">
+										<p><%= project['sub_title']%></p>
+									</div>
+								</a>
+							</article>
+						<%})%>
+					</section>
+				</div>
+			</div>
+
+			<!-- Footer -->
+			<% include ../partials/footer.ejs %>
+	</body>
+</html>
