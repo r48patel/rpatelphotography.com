@@ -20,7 +20,7 @@ async function read_database() {
 	});
 
 	client.connect();
-	await client.query('select * from rpateltravels order by taken_date DESC;')
+	await client.query('select * from rpateltravels order by taken_date DESC NULLS FIRST;')
 		.then(res => {
 			for (var i = 0; i < res.rows.length; i++) {
 				projects.push(res.rows[i])

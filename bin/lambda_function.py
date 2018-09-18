@@ -8,22 +8,24 @@ from base64 import b64decode
 from  db import *
 
 def get_all_s3_objects(s3, bucket, prefix=None):
-        """Return all of the objects in a bucket with given prefix"""
-        paginator = s3.get_paginator('list_objects_v2')
-        if prefix:
-            results = paginator.paginate(Bucket=bucket, Prefix=prefix)
-        else:
-            results = paginator.paginate(Bucket=bucket)
+    print("get_all_s3_objects(%s, %s, %s)" % (s3, bucket, prefix) )
+    """Return all of the objects in a bucket with given prefix"""
+    paginator = s3.get_paginator('list_objects_v2')
+    if prefix:
+        results = paginator.paginate(Bucket=bucket, Prefix=prefix)
+    else:
+        results = paginator.paginate(Bucket=bucket)
 
-        items = []
-        for result in results:
-            for content in result['Contents']:
-                if content['Size'] > 0 and '-thumb.' not in content['Key']:
-                    items.append(content)
+    items = []
+    for result in results:
+        for content in result['Contents']:
+            if content['Size'] > 0 and '-thumb.' not in content['Key']:
+                items.append(content)
 
-        return items
+    return items
 
 def delete_psql_entry(folder):
+    print("delete_psql_entry(%s)" % folder)
     if 'DATABASE_URL' not in os.environ:
         raise Exception('DATABASE_URL not defined as env variable')
 
@@ -42,6 +44,7 @@ def delete_psql_entry(folder):
     return psql.delete('rpateltravels', "title = '%s'" % folder)
 
 def update_psql(bucket, key):
+    print("update_psql(%s, %s)" % (bucket, key))
     if 'DATABASE_URL' not in os.environ:
         raise Exception('DATABASE_URL not defined as env variable')
 
@@ -62,7 +65,7 @@ def update_psql(bucket, key):
     title = prefix_array[0].strip()
     location = prefix_array[1].strip()
     term = prefix_array[2].strip()
-    taken_date = prefix_array[3].strip().replace('_', '-')
+    taken_date = prefix_array[3].strip().replace('_', '-') if prefix_array[3] != '' else None
     link_prefix = "https://s3.amazonaws.com/rpateltravels/%s/" % prefix.replace(' ', '+')
     total_items = len(get_all_s3_objects(s3, bucket, prefix))
 
@@ -73,7 +76,14 @@ def update_psql(bucket, key):
         if len(select_results) > 0:
             command = psql.update('rpateltravels', 'items', total_items, "title = '%s'" % title)
         else:
-            command = psql.insert('rpateltravels', "title,location,term,taken_date,link_prefix,items", "('%s', '%s', '%s', '%s', '%s', %s)" % (title, location, term, taken_date, link_prefix, total_items))
+            if taken_date:
+                command = psql.insert(
+                    'rpateltravels', "title,location,term,taken_date,link_prefix,items", 
+                    "('%s', '%s', '%s', '%s', '%s', %s)" % (title, location, term, taken_date, link_prefix, total_items))
+            else:
+                command =  psql.insert(
+                    'rpateltravels', "title,location,term,taken_date,link_prefix,items", 
+                    "('%s', '%s', '%s', NULL, '%s', %s)" % (title, location, term, link_prefix, total_items))
 
     return command
 
