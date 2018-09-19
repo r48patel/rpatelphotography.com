@@ -41,7 +41,7 @@ def delete_psql_entry(folder):
     DATABASE_URL = kms.decrypt(CiphertextBlob=b64decode(ENCRYPTED_DATABASE_URL))['Plaintext']
     psql = PSQL(DATABASE_URL)
 
-    return psql.delete('rpateltravels', "title = '%s'" % folder)
+    return psql.delete('rpatelphotography', "title = '%s'" % folder)
 
 def update_psql(bucket, key):
     print("update_psql(%s, %s)" % (bucket, key))
@@ -66,23 +66,23 @@ def update_psql(bucket, key):
     location = prefix_array[1].strip()
     term = prefix_array[2].strip()
     taken_date = prefix_array[3].strip().replace('_', '-') if prefix_array[3] != '' else None
-    link_prefix = "https://s3.amazonaws.com/rpateltravels/%s/" % prefix.replace(' ', '+')
+    link_prefix = "https://s3.amazonaws.com/rpatelphotography/%s/" % prefix.replace(' ', '+')
     total_items = len(get_all_s3_objects(s3, bucket, prefix))
 
-    select_results = psql.select('*', 'rpateltravels', conditions="title='%s'"%title)
+    select_results = psql.select('*', 'rpatelphotography', conditions="title='%s'"%title)
     if total_items == 0:
         command = delete_psql_entry(title)
     else:
         if len(select_results) > 0:
-            command = psql.update('rpateltravels', 'items', total_items, "title = '%s'" % title)
+            command = psql.update('rpatelphotography', 'items', total_items, "title = '%s'" % title)
         else:
             if taken_date:
                 command = psql.insert(
-                    'rpateltravels', "title,location,term,taken_date,link_prefix,items", 
+                    'rpatelphotography', "title,location,term,taken_date,link_prefix,items", 
                     "('%s', '%s', '%s', '%s', '%s', %s)" % (title, location, term, taken_date, link_prefix, total_items))
             else:
                 command =  psql.insert(
-                    'rpateltravels', "title,location,term,taken_date,link_prefix,items", 
+                    'rpatelphotography', "title,location,term,taken_date,link_prefix,items", 
                     "('%s', '%s', '%s', NULL, '%s', %s)" % (title, location, term, link_prefix, total_items))
 
     return command
@@ -119,4 +119,4 @@ def lambda_handler(event, context):
         
 
 if __name__ == '__main__':
-    update_psql('rpateltravels', 'Engagement Photoshoot')
+    update_psql('rpatelphotography', 'Engagement Photoshoot')

@@ -6,7 +6,7 @@ const { Client } = require('pg')
 var shell = require('shelljs');
 
 if(!process.env.DATABASE_URL) {
-	var DATABASE_URL = shell.exec("heroku config:get DATABASE_URL --app rpateltravels")
+	var DATABASE_URL = shell.exec("heroku config:get DATABASE_URL --app rpatelphotography")
 }
 else {
 	var DATABASE_URL = process.env.DATABASE_URL
@@ -20,7 +20,7 @@ async function read_database() {
 	});
 
 	client.connect();
-	await client.query('select * from rpateltravels order by taken_date DESC NULLS FIRST;')
+	await client.query('select * from rpatelphotography order by taken_date DESC NULLS FIRST;')
 		.then(res => {
 			for (var i = 0; i < res.rows.length; i++) {
 				projects.push(res.rows[i])

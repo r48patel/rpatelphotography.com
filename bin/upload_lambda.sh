@@ -15,7 +15,7 @@ echo "Remove lambda/lambda_function.py"
 rm lambda_function.py
 cd ..
 echo "Upload lambda.zip"
-aws lambda update-function-code --function-name rpateltravels_psql_update --zip-file fileb://lambda.zip --profile personal 1>/dev/null
+aws lambda update-function-code --function-name rpatelphotography_psql_update --zip-file fileb://lambda.zip --profile personal 1>/dev/null
 echo "Remove lambda.zip"
 rm lambda.zip
 popd 1>/dev/null
