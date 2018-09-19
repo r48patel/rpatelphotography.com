@@ -17,5 +17,16 @@
                 <p>Sharing some of the memories from my travels and events attended.</p>
                 <footer>
                     <a href="#gallery" class="button style2 scrolly">View Gallery</a>
+                    <div class="dropdown show">
+                      <a class="btn style2 scrolly dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        List of Portfolios
+                      </a>
+
+                      <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuLink">
+                        <% info.forEach(project => {%>
+                            <a class="dropdown-item" href="#<%= project.title.replace(/ /g, '')%>"><%= project.title%></a>
+                        <%})%>
+                      </div>
+                    </div>
                 </footer>
             </section>

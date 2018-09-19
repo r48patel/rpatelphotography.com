@@ -5,3 +5,9 @@
 .nav-list {
     margin-bottom: -1em;
 }
+
+.scrollable-menu {
+    height: auto;
+    max-height: 300px;
+    overflow-x: hidden;
+}
