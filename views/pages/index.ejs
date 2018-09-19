@@ -8,9 +8,9 @@
 		<!-- Portfolio -->
 		<section id="gallery">
 			<% info.forEach(project => {%>
-				<article id="<%= project.title%>" class="container box style2">
+				<article id="<%= project.title.replace(/ /g, '')%>" class="container box style2">
 					<header>
-						<a href="#<%= project.title%>"><h2><%= project.title%></h2></a>
+						<a href="#<%= project.title.replace(/ /g, '')%>"><h2><%= project.title%></h2></a>
 						<p><%= project.location%><br/><%= project.term%></p>
 					</header>
 					<div class="inner gallery">
