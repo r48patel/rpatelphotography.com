@@ -24,7 +24,7 @@
 
                       <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuLink">
                         <% info.forEach(project => {%>
-                            <a class="dropdown-item" href="#<%= project.title.replace(/ /g, '')%>"><%= project.title%></a>
+                            <a class="dropdown-item" href="#<%= project.title.replace(/ /g, '')%>"><%= project.title%> - <%= project.term%></a>
                         <%})%>
                       </div>
                     </div>
