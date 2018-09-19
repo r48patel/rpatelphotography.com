@@ -23,8 +23,10 @@
     -ms-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
+    z-index: 999;
 }
 #return-to-top i {
+	position: fixed;
     color: #fff;
     margin: 0;
     position: relative;
@@ -37,6 +39,7 @@
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
     text-decoration:none;
+    z-index: 999;
 }
 #return-to-top:hover {
     background: rgba(0, 0, 0, 0);
