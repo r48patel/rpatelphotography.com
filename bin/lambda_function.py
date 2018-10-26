@@ -29,16 +29,13 @@ def delete_psql_entry(folder):
     if 'DATABASE_URL' not in os.environ:
         raise Exception('DATABASE_URL not defined as env variable')
 
+    profile=None
     if 'USER' in os.environ:
-        session = boto3.Session(profile_name='personal')
-        kms = session.client('kms')
-        s3 = session.client('s3')
-    else:
-        kms = boto3.client('kms')
-        s3 = boto3.client('s3')
-
-    ENCRYPTED_DATABASE_URL = os.environ['DATABASE_URL']
-    DATABASE_URL = kms.decrypt(CiphertextBlob=b64decode(ENCRYPTED_DATABASE_URL))['Plaintext']
+        profile='personal'
+    session = boto3.Session(profile_name=profile)
+    s3 = session.client('s3')
+    
+    DATABASE_URL = os.environ['DATABASE_URL']
     psql = PSQL(DATABASE_URL)
 
     return psql.delete('rpatelphotography', "title = '%s'" % folder)
@@ -48,20 +45,22 @@ def update_psql(bucket, key):
     if 'DATABASE_URL' not in os.environ:
         raise Exception('DATABASE_URL not defined as env variable')
 
+    profile=None
     if 'USER' in os.environ:
-        session = boto3.Session(profile_name='personal')
-        kms = session.client('kms')
-        s3 = session.client('s3')
-    else:
-        kms = boto3.client('kms')
-        s3 = boto3.client('s3')
+        profile='personal'
+    session = boto3.Session(profile_name=profile)
+    s3 = session.client('s3')
 
-    ENCRYPTED_DATABASE_URL = os.environ['DATABASE_URL']
-    DATABASE_URL = kms.decrypt(CiphertextBlob=b64decode(ENCRYPTED_DATABASE_URL))['Plaintext']
+    DATABASE_URL = os.environ['DATABASE_URL']
     psql = PSQL(DATABASE_URL)
+
 
     prefix = key.split('/')[0]
     prefix_array = prefix.split('-')
+    
+    if len(prefix_array) != 4:
+        raise Exception('Failed to parse s3 folder %s. Make it is formmated properly' % prefix_array)
+
     title = prefix_array[0].strip()
     location = prefix_array[1].strip()
     term = prefix_array[2].strip()
@@ -104,6 +103,8 @@ def lambda_handler(event, context):
         elif 'ObjectRemoved:' in event_type:
             key_split = key.split('/')
             print("key_split: %s" % key_split)
+            if len(key_split[0].split('-')) != 4:
+                raise Exception('Failed to parse s3 folder %s. Make it is formmated properly' % key_split[0])
             if key_split[1] == '': # When Folder is deleted
                 title = key_split[0].split('-')[0].strip()
                 command_result = delete_psql_entry(title)
