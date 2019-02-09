@@ -3,26 +3,35 @@
   "version": "0.0.1",
   "description": "A website for my travel documentations",
   "engines": {
-    "node": "8.1.3"
+    "node": "8.1.3",
+    "npm": "6.7.0"
   },
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "dependencies": {
-    "bootstrap": "^3.3.7",
-    "browser-sync": "^2.13.0",
-    "ejs": "2.4.1",
-    "express": "4.13.3",
+    "bootstrap": ">=3.4.0",
+    "browser-sync": "^2.26.3",
+    "cryptiles": ">=4.1.2",
+    "debug": ">=2.6.9",
+    "ejs": ">=2.5.5",
+    "express": "^4.16.4",
     "font-awesome": "^4.6.3",
-    "jquery": "^1.11.3",
-    "list": "0.8.2",
+    "fresh": ">=0.5.2",
+    "hoek": ">=4.2.1",
+    "jquery": ">=3.0.0",
+    "list": "^2.0.16",
+    "lodash": ">=4.17.5",
     "logger": "^0.0.1",
-    "morgan": "^1.8.1",
+    "mime": ">=1.4.1",
+    "morgan": "^1.9.1",
     "pg": "^7.4.3",
+    "randomatic": ">=3.0.0",
     "scrollreveal": "^3.1.4",
     "shelljs": "^0.8.2",
-    "sleep": "4.0.0"
+    "sleep": "4.0.0",
+    "sshpk": ">=1.13.2"
   },
   "repository": {
     "type": "git",
