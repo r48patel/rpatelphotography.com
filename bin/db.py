@@ -59,6 +59,22 @@ class PSQL():
 		command="""DROP TABLE IF EXISTS %s;""" % table
 		return self.execute(command)
 
+	def create_update_function(self):
+		command="""
+		CREATE OR REPLACE FUNCTION updated_at_column_function() 
+		RETURNS TRIGGER AS $$
+		BEGIN
+		    NEW.updated_at = now();
+		    RETURN NEW; 
+		END;
+		$$ language 'plpgsql';
+		"""
+		return self.execute(command)
+
+	def create_update_trigger(self, table):
+		command="""CREATE TRIGGER updated_at_column_trigger BEFORE UPDATE ON %s FOR EACH ROW WHEN (NEW.term != 'Ongoing') EXECUTE PROCEDURE updated_at_column_function();""" % table
+		return self.execute(command)
+
 def main(url, action, table, columns, conditions, values):
 
 	psql = PSQL(url)
@@ -75,13 +91,17 @@ def main(url, action, table, columns, conditions, values):
 		psql.drop_table(table)
 	elif action == 'delete':
 		psql.delete(table, conditions)
+	elif action == 'create_function':
+		psql.create_update_function()
+	elif action == 'create_trigger':
+		psql.create_update_trigger(table)
 
 
 if __name__ == '__main__':
 
 	parser = argparse.ArgumentParser('Heroku Postgres database helper script')
 	parser.add_argument('--url', help='db url', required=True)
-	parser.add_argument('--action', help='What action to execute', choices=['create_table', 'select', 'insert', 'drop_table', 'update', 'delete'], required=True)
+	parser.add_argument('--action', help='What action to execute', choices=['create_table', 'create_function', 'create_trigger', 'select', 'insert', 'drop_table', 'update', 'delete'], required=True)
 	parser.add_argument('--table', help='table name', required=True)
 	parser.add_argument('--columns', help='columns name')
 	parser.add_argument('--conditions', default=None, help='conditions for select')

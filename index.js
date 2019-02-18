@@ -12,7 +12,16 @@ else {
 	var DATABASE_URL = process.env.DATABASE_URL
 }
 
-async function read_database() {
+function get_recent_less_than_10d() {
+	return read_database('select * from rpatelphotography where EXTRACT(DAY FROM now() - updated_at) < 10 order by updated_at DESC NULLS FIRST, taken_date DESC NULLS FIRST;')
+}
+
+function get_other_projects() {
+	return read_database('select * from rpatelphotography where EXTRACT(DAY FROM now() - updated_at) > 10 or term = \'Ongoing\' order by updated_at DESC NULLS FIRST, taken_date DESC NULLS FIRST;')
+}
+
+
+async function read_database(query) {
 	var projects = []
 	const client = new Client({
 	  connectionString: DATABASE_URL.toString(),
@@ -20,7 +29,7 @@ async function read_database() {
 	});
 
 	client.connect();
-	await client.query('select * from rpatelphotography order by taken_date DESC NULLS FIRST;')
+	await client.query(query)
 		.then(res => {
 			for (var i = 0; i < res.rows.length; i++) {
 				projects.push(res.rows[i])
@@ -42,10 +51,13 @@ app.set('view engine', 'ejs');
 
 app.use(logger());
 app.get('/', function(request, response) {
-	read_database().then(res => {
-		response.render('pages/index', {
-			info: res
-		});
+	get_recent_less_than_10d().then(recent_projects => {
+		get_other_projects().then(other_projects => {
+			response.render('pages/index', {
+				recent_projects: recent_projects,
+				other_projects: other_projects
+			});
+		})
 	})
 	.catch(e => console.error(e.stack))
 });

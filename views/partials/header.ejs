@@ -5,7 +5,7 @@
                     <p>By Ravi Patel</p>
                 </header>
                 <footer>
-                    <a href="#banner" class="button style2 scrolly-middle">What is it?</a>
+                    <a href="#banner" class="button style2 scrolly-middle">Check it out!</a>
                 </footer>
             </section>
 
@@ -23,7 +23,10 @@
                       </a>
 
                       <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuLink">
-                        <% info.forEach(project => {%>
+                        <% recent_projects.forEach(project => {%>
+                            <a class="dropdown-item scrolly" href="#<%= project.title.replace(/ /g, '')%>"><p class="dropdown_item_recently_updated">Recently Updated!</p><%= project.title%> - <%= project.term%></a>
+                        <%})%>
+                        <% other_projects.forEach(project => {%>
                             <a class="dropdown-item scrolly" href="#<%= project.title.replace(/ /g, '')%>"><%= project.title%> - <%= project.term%></a>
                         <%})%>
                       </div>

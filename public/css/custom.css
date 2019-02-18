@@ -50,3 +50,11 @@
     top: 5px;
     text-decoration:none;
 }
+.recently_updated {
+    color: #ffa900;
+    margin-bottom:auto;
+}
+.dropdown_item_recently_updated {
+    font-style: italic;
+    color: #dad6d6;
+}
