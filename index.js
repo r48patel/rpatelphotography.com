@@ -4,6 +4,7 @@ var path = require('path');
 var logger = require('morgan');
 const { Client } = require('pg')
 var shell = require('shelljs');
+var days_old = 2
 
 if(!process.env.DATABASE_URL) {
 	var DATABASE_URL = shell.exec("heroku config:get DATABASE_URL --app rpatelphotography")
@@ -12,12 +13,12 @@ else {
 	var DATABASE_URL = process.env.DATABASE_URL
 }
 
-function get_recent_less_than_3d() {
-	return read_database('select * from rpatelphotography where EXTRACT(DAY FROM now() - updated_at) <= 3 and term != \'Ongoing\' order by updated_at DESC NULLS FIRST, taken_date DESC NULLS FIRST;')
+function get_recent_projects() {
+	return read_database(`select * from rpatelphotography where EXTRACT(DAY FROM now() - updated_at) <= ${days_old} and term != \'Ongoing\' order by taken_date DESC NULLS FIRST;`)
 }
 
 function get_other_projects() {
-	return read_database('select * from rpatelphotography where EXTRACT(DAY FROM now() - updated_at) > 3 or term = \'Ongoing\' order by updated_at DESC NULLS FIRST, taken_date DESC NULLS FIRST;')
+	return read_database(`select * from rpatelphotography where EXTRACT(DAY FROM now() - updated_at) > ${days_old} or term = \'Ongoing\' order by taken_date DESC NULLS FIRST;`)
 }
 
 
@@ -51,7 +52,7 @@ app.set('view engine', 'ejs');
 
 app.use(logger());
 app.get('/', function(request, response) {
-	get_recent_less_than_3d().then(recent_projects => {
+	get_recent_projects().then(recent_projects => {
 		get_other_projects().then(other_projects => {
 			response.render('pages/index', {
 				recent_projects: recent_projects,

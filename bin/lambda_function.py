@@ -24,8 +24,8 @@ def get_all_s3_objects(s3, bucket, prefix=None):
 
     return items
 
-def delete_psql_entry(folder):
-    print("delete_psql_entry(%s)" % folder)
+def delete_psql_entry(folder, term):
+    print("delete_psql_entry(%s - %s)" % (folder, term))
     if 'DATABASE_URL' not in os.environ:
         raise Exception('DATABASE_URL not defined as env variable')
 
@@ -38,7 +38,7 @@ def delete_psql_entry(folder):
     DATABASE_URL = os.environ['DATABASE_URL']
     psql = PSQL(DATABASE_URL)
 
-    return psql.delete('rpatelphotography', "title = '%s'" % folder)
+    return psql.delete('rpatelphotography', "title = '%s' and term = '%s'" % (folder, term))
 
 def update_psql(bucket, key):
     print("update_psql(%s, %s)" % (bucket, key))
@@ -70,7 +70,7 @@ def update_psql(bucket, key):
 
     select_results = psql.select('*', 'rpatelphotography', conditions="title='%s'"%title)
     if total_items == 0:
-        command = delete_psql_entry(title)
+        command = delete_psql_entry(title, term )
     else:
         if len(select_results) > 0:
             command = psql.update('rpatelphotography', 'items', total_items, "title = '%s'" % title)
